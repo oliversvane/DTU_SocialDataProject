@@ -3,7 +3,7 @@ import pandas as pd
 
 # Bokeh import
 from bokeh.plotting import figure
-from bokeh.palettes import all_palettes as palette # Pallete of colors
+import bokeh.palettes  as palette # Pallete of colors
 from bokeh.models import HoverTool,Range1d
 
 # Begin functions:
@@ -47,7 +47,7 @@ def create_barplot(attribute_x,attribute_y,data):
 
     p = figure(x_range=x_cat_list, title="Title Here",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
     p.sizing_mode = 'scale_both'
-    colors =palette['Viridis'][len(y_cat_list)]
+    colors =palette.magma(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
                 legend_label=y_cat_list,name=y_cat_list,line_color = None)
@@ -114,7 +114,7 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
 
     p = figure(x_range=x_cat_list, title="Title Here",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset",y_range=Range1d(bounds=(0, 1)))
     p.sizing_mode = 'scale_both'
-    colors =palette['Viridis'][len(y_cat_list)]
+    colors =palette.magma(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
                 legend_label=y_cat_list,name=y_cat_list,line_color = None)

@@ -186,9 +186,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-10 mx-auto">
+                        {{stacked_p_plot|safe }}
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-6 pricing-wrap box box-shadow my-3 my-lg-0">
-                                {{stacked_p_plot|safe }}
+                                Her kan der være noget stat
                             </div>
                             <div class="d-none d-lg-block col-lg-5 ml-auto">
                                 <img src="{{ url_for('static', filename='images/pricing-image.svg')}}" class="img-fluid" alt="Pricing Image">

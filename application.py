@@ -26,9 +26,10 @@ Bootstrap(app)
 @app.route("/")
 def index():
     data = pd.read_pickle('data/final_final_data.pkl')
-    plot_p = SD_barblots.create_stacked_barplot("buildingNature","conditionOfConstruction",data)
-    plot = SD_barblots.create_barplot("buildingNature","conditionOfConstruction",data)
+    plot_p = SD_barblots.create_stacked_barplot("Kommune","EnergyLabelClassification",data)
+    plot = SD_barblots.create_barplot("Kommune","EnergyLabelClassification",data)
     return render_template('index.html',stacked_p_plot=file_html(plot_p, CDN, "stacked_p"),stacked_plot=file_html(plot, CDN, "stacked_p"))
+
 
 if __name__ == "__main__":
     app.run()
