@@ -2,6 +2,7 @@ import pandas as pd
 import folium
 from folium import plugins
 from folium.plugins import HeatMap
+from collections import defaultdict
 
 
 #Default map of copenhagen
