@@ -2,8 +2,8 @@ from flask import Flask, render_template, session, request, redirect, url_for, j
 from flask_session import Session  # https://pythonhosted.org/Flask-Session
 import app_config
 from flask_bootstrap import Bootstrap
-from bokeh.embed import file_html
-from bokeh.resources import CDN
+#from bokeh.embed import file_html
+#from bokeh.resources import CDN
 
 import plots.barplots as SD_barblots
 import plots.Folium_heat as heatmap
@@ -33,6 +33,13 @@ def index():
     ,stacked_p_plot=file_html(plot_p, CDN, "stacked_p")
     ,stacked_plot=file_html(plot, CDN, "stacked_p")
     ,heat_plot=heat_plot._repr_html_())
+
+@app.route("/map")
+def map():
+    data = pd.read_pickle('data/final_final_data.pkl')
+    heat_plot = heatmap.create_folium_heatmap(data,"Wgs84Latitude","Wgs84Longitude",2,1).save("map.html")
+    return render_template("map.html")
+
 
 
 if __name__ == "__main__":
