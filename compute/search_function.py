@@ -1,7 +1,3 @@
-
-
-
-
 def evaluate_address(address):
     """
     Input:
@@ -13,6 +9,7 @@ def evaluate_address(address):
         info : list
             A list containing relevant information of the building such as energy rating
     """
+    
 
 
     info = None

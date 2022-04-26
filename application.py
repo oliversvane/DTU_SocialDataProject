@@ -32,8 +32,16 @@ def index():
     return render_template('index.html'
     ,stacked_p_plot=file_html(plot_p, CDN, "stacked_p")
     ,stacked_plot=file_html(plot, CDN, "stacked_p")
-    ,heat_plot=heat_plot._repr_html_())
+    ,heat_plot=heat_plot)
 
+
+@app.route("/map")
+def map():
+    data = pd.read_pickle('data/final_final_data.pkl')
+
+    heat_plot = heatmap.create_folium_heatmap(data,"Wgs84Latitude","Wgs84Longitude",3,3).save("templates/map.html")
+
+    return render_template('map.html')
 
 if __name__ == "__main__":
     app.run()
