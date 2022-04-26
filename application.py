@@ -6,8 +6,7 @@ from bokeh.embed import file_html
 from bokeh.resources import CDN
 
 import plots.barplots as SD_barblots
-import plots.heatmaps as SD_heatmaps
-
+import plots.Folium_heat as heatmap
 
 
 ## Temp imports:
@@ -28,7 +27,12 @@ def index():
     data = pd.read_pickle('data/final_final_data.pkl')
     plot_p = SD_barblots.create_stacked_barplot("Kommune","EnergyLabelClassification",data)
     plot = SD_barblots.create_barplot("Kommune","EnergyLabelClassification",data)
-    return render_template('index.html',stacked_p_plot=file_html(plot_p, CDN, "stacked_p"),stacked_plot=file_html(plot, CDN, "stacked_p"))
+    heat_plot = heatmap.create_folium_heatmap(data,"Wgs84Latitude","Wgs84Longitude",2,1)
+
+    return render_template('index.html'
+    ,stacked_p_plot=file_html(plot_p, CDN, "stacked_p")
+    ,stacked_plot=file_html(plot, CDN, "stacked_p")
+    ,heat_plot=heat_plot._repr_html_())
 
 
 if __name__ == "__main__":
