@@ -1,10 +1,12 @@
 # Init dependencies
 import pandas as pd
+import numpy as np
 
 # Bokeh import
 from bokeh.plotting import figure
 import bokeh.palettes  as palette # Pallete of colors
 from bokeh.models import HoverTool,Range1d
+import warnings
 
 # Begin functions:
 def create_barplot(attribute_x,attribute_y,data):
@@ -55,12 +57,13 @@ def create_barplot(attribute_x,attribute_y,data):
 
     for r in renderers:
         hover = HoverTool(tooltips=[
-            ("Count", "@$name")
+            ("Count", "@$name"),
+            ("label","$name")
         ], renderers=[r],toggleable=False)
         p.add_tools(hover)
 
 
-    p.add_layout(p.legend[0], 'below')
+    p.add_layout(p.legend[0], 'right')
 
     barplot = p
     return barplot
@@ -122,11 +125,54 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
 
     for r in renderers:
         hover = HoverTool(tooltips=[
-            ("percentage", "@$name{0 %}")
+            ("percentage", "@$name{2 %}"),
+            ("label","$name")
         ], renderers=[r],toggleable=False)
         p.add_tools(hover)
 
 
-    p.add_layout(p.legend[0], 'below')
+    p.add_layout(p.legend[0], 'right')
     stacked_barplot = p
     return stacked_barplot
+
+
+
+def create_histogram(title, attribute_x,data,bins=100):
+    """
+    Input:
+        attribute_x : list
+            A list containing the names of the x-axis attributes as strings
+            
+        data : DataFrame
+            A pandas dataframe containing all the data
+
+
+    Returns:
+        barplot : bokeh plot
+            A bokeh stacked barplot ready to be converted to html
+            Read more here: https://docs.bokeh.org/en/latest/docs/user_guide/embed.html
+    """
+    p = figure(title=title, background_fill_color="#fafafa",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
+    colors =palette.magma(len(attribute_x))
+    max_v = 0
+    for index,i in enumerate(attribute_x):
+        try:
+            hist, edges = np.histogram(np.array(data[i]), density=False, bins=bins)
+            p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
+                fill_color=colors[index], alpha=0.5,legend_label=i)
+            max_t_v = max(hist)
+            if max_t_v>max_v:
+                max_v=max_t_v
+        except:
+            warnings.warn(f"{i} is of type string and cannot be used to create histogram. Please select another attribute")
+        
+
+
+    p.y_range = Range1d(0, int(max(hist)*1.1), bounds="auto")
+    p.add_layout(p.legend[0], 'right')
+    p.legend.background_fill_color = "#fefefe"
+    p.xaxis.axis_label = 'x'
+    p.yaxis.axis_label = 'Pr(x)'
+    p.grid.grid_line_color="white"
+    p.sizing_mode = 'scale_both'
+    return p
