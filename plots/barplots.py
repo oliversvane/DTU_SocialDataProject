@@ -62,7 +62,7 @@ def create_barplot(attribute_x,attribute_y,data):
         ], renderers=[r],toggleable=False)
         p.add_tools(hover)
 
-
+    p.title.text_font_size = '20pt'
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
@@ -130,7 +130,7 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
         ], renderers=[r],toggleable=False)
         p.add_tools(hover)
 
-
+    p.title.text_font_size = '20pt'
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
@@ -167,11 +167,10 @@ def create_histogram(title, attribute_x,data,bins=100):
             warnings.warn(f"{i} is of type string and cannot be used to create histogram. Please select another attribute")
         
 
-
+    p.title.text_font_size = '20pt'
     p.y_range = Range1d(0, int(max_v*1.1), bounds="auto")
     #p.add_layout(p.legend[0], 'right')
     p.legend.background_fill_color = "#fefefe"
-    p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = 'Count'
     p.grid.grid_line_color="white"
     p.sizing_mode = 'scale_both'
