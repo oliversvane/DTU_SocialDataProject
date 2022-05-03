@@ -47,9 +47,9 @@ def create_barplot(attribute_x,attribute_y,data):
 
 
 
-    p = figure(x_range=x_cat_list, title="Title Here",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
+    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
     p.sizing_mode = 'scale_both'
-    colors =palette.magma(len(y_cat_list))
+    colors =palette.turbo(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
                 legend_label=y_cat_list,name=y_cat_list,line_color = None)
@@ -64,10 +64,10 @@ def create_barplot(attribute_x,attribute_y,data):
 
 
     p.add_layout(p.legend[0], 'right')
-
+    p.xaxis.axis_label = attribute_x
+    p.yaxis.axis_label = attribute_y
     barplot = p
     return barplot
-
 
 def create_stacked_barplot(attribute_x,attribute_y,data):
     """
@@ -115,9 +115,9 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
         dict_data[i]=temp_list
 
 
-    p = figure(x_range=x_cat_list, title="Title Here",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset",y_range=Range1d(bounds=(0, 1)))
+    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset",y_range=Range1d(bounds=(0, 1)))
     p.sizing_mode = 'scale_both'
-    colors =palette.magma(len(y_cat_list))
+    colors =palette.turbo(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
                 legend_label=y_cat_list,name=y_cat_list,line_color = None)
@@ -132,10 +132,10 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
 
 
     p.add_layout(p.legend[0], 'right')
+    p.xaxis.axis_label = attribute_x
+    p.yaxis.axis_label = attribute_y
     stacked_barplot = p
     return stacked_barplot
-
-
 
 def create_histogram(title, attribute_x,data,bins=100):
     """
@@ -153,7 +153,7 @@ def create_histogram(title, attribute_x,data,bins=100):
             Read more here: https://docs.bokeh.org/en/latest/docs/user_guide/embed.html
     """
     p = figure(title=title, background_fill_color="#fafafa",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
-    colors =palette.magma(len(attribute_x))
+    colors =palette.turbo(len(attribute_x))
     max_v = 0
     for index,i in enumerate(attribute_x):
         try:
@@ -168,11 +168,11 @@ def create_histogram(title, attribute_x,data,bins=100):
         
 
 
-    p.y_range = Range1d(0, int(max(hist)*1.1), bounds="auto")
-    p.add_layout(p.legend[0], 'right')
+    p.y_range = Range1d(0, int(max_v*1.1), bounds="auto")
+    #p.add_layout(p.legend[0], 'right')
     p.legend.background_fill_color = "#fefefe"
-    p.xaxis.axis_label = 'x'
-    p.yaxis.axis_label = 'Pr(x)'
+    p.xaxis.axis_label = attribute_x
+    p.yaxis.axis_label = 'Count'
     p.grid.grid_line_color="white"
     p.sizing_mode = 'scale_both'
     return p
