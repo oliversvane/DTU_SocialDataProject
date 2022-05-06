@@ -1,3 +1,5 @@
 *.csv
 *.pkl
+*.pyc
+__pycache__
 test_notebook.ipynb
