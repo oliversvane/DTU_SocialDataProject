@@ -47,8 +47,8 @@ def create_barplot(attribute_x,attribute_y,data):
 
 
 
-    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
-    p.sizing_mode = 'scale_both'
+    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='below', tools="pan,wheel_zoom,box_zoom,reset", plot_height=500,plot_width=1000)
+    p.sizing_mode = 'scale_width'
     colors =palette.turbo(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
@@ -115,8 +115,8 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
         dict_data[i]=temp_list
 
 
-    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset",y_range=Range1d(bounds=(0, 1)))
-    p.sizing_mode = 'scale_both'
+    p = figure(x_range=x_cat_list, title=attribute_x + " over " + attribute_y,toolbar_location='below', tools="pan,wheel_zoom,box_zoom,reset",y_range=Range1d(bounds=(0, 1)), plot_height=500,plot_width=1000)
+    p.sizing_mode = 'scale_width'
     colors =palette.turbo(len(y_cat_list))
     
     renderers = p.vbar_stack(y_cat_list, x=attribute_x, width=0.9, color=colors, source=dict_data,
@@ -152,7 +152,7 @@ def create_histogram(title, attribute_x,data,bins=100):
             A bokeh stacked barplot ready to be converted to html
             Read more here: https://docs.bokeh.org/en/latest/docs/user_guide/embed.html
     """
-    p = figure(title=title, background_fill_color="#fafafa",toolbar_location='above', tools="pan,wheel_zoom,box_zoom,reset")
+    p = figure(title=title, background_fill_color="#fafafa",toolbar_location='below', tools="pan,wheel_zoom,box_zoom,reset", plot_height=500,plot_width=1000)
     colors =palette.turbo(len(attribute_x))
     max_v = 0
     for index,i in enumerate(attribute_x):
@@ -169,9 +169,8 @@ def create_histogram(title, attribute_x,data,bins=100):
 
     p.title.text_font_size = '20pt'
     p.y_range = Range1d(0, int(max_v*1.1), bounds="auto")
-    #p.add_layout(p.legend[0], 'right')
+    p.add_layout(p.legend[0], 'right')
     p.legend.background_fill_color = "#fefefe"
     p.yaxis.axis_label = 'Count'
     p.grid.grid_line_color="white"
-    p.sizing_mode = 'scale_both'
     return p
