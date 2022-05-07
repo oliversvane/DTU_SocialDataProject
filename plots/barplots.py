@@ -7,6 +7,7 @@ from bokeh.plotting import figure
 import bokeh.palettes  as palette # Pallete of colors
 from bokeh.models import HoverTool,Range1d
 import warnings
+import math
 
 # Begin functions:
 def create_barplot(attribute_x,attribute_y,data):
@@ -61,11 +62,13 @@ def create_barplot(attribute_x,attribute_y,data):
             ("label","$name")
         ], renderers=[r],toggleable=False)
         p.add_tools(hover)
-
+    p.xaxis.major_label_orientation = math.pi*2/7
+    #p.xaxis.major_label_orientation = "vertical"
     p.title.text_font_size = '20pt'
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
+
     barplot = p
     return barplot
 
