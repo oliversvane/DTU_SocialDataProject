@@ -1,311 +1,208 @@
-<!DOCTYPE html>
-<html lang="zxx" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
-    <title>The Very Best Social Data Website</title>
+    <title>Social Data Science 2022</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Standard favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}">
-
-    <!-- Helps prevent duplicate content issues -->
-    <link rel="canonical" href="">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
-
-    <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css')}}">
-
-    <!-- Color CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/color.css')}}">
-
-    <!-- Font CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font.css')}}">
-
-    <!-- Button CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/button.css')}}">
-
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+    <!-- Bokeh -->
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+    <!-- Main JS -->
+    <script type = "text/javascript" src="{{ url_for('static', filename='js/main.js')}}"></script>
+
 
 </head>
-
-<body class="text-black base-font-size">
-
-    <div class="wrapper h-100">
-
-        <!-- Header -->
-        <header class="header bg-primary">
-            <!-- Empty Space -->
-            <div class="sm-space"></div>
-            <!--/ End Empty Space -->
-            <div class="header-inner">
-                <nav class="navbar">
-                    <div class="container">
-                        <a class="navbar-brand logo md-font-size font-family-secondary text-dark-gray mr-0 mr-sm-5" href="/">
-                            <img src="{{ url_for('static', filename='images/logo.svg')}}" class="logo-img" alt="logo">
-                        </a>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="#" class="btn btn-md btn-round btn-secondary px-4">Lorem Ipsum</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <!-- Empty Space -->
-            <div class="sm-space bg-primary"></div>
-            <!--/ End Empty Space -->
-        </header>
-        <!--/ End Header -->
-
-        <!-- Hero -->
-        <div class="jumbotron jumbotron-fluid bg-primary text-secondary font-weight__500 hero mb-0">
-            <!-- Empty Space -->
-            <div class="sm-space"></div>
-            <!--/ End Empty Space -->
-            <div class="container hero-inner">
-                <div class="row align-items-center">
-                    <div class="col-12 col-lg-6 mr-lg-auto">
-                        <div class="text-center text-lg-left">
-                            <h1 class="xxxl-font-size font-weight__900 text-white">
-							Lorem ipsum dolor sit amet consectetur
-						</h1>
-                            <div class="md-space"></div>
-                            <p class="lead base-plus-font-size text-white">
-                                Praesent mollis, massa in auctor molestie, magna lorem semper mauris, a venenatis turpis purus vel metus. Etiam sed iaculis libero, at euismod massa. Fusce in venenatis ligula.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-5">
-                        <img src="{{ url_for('static', filename='images/hero-image.svg')}}" class="img-fluid" alt="Hero Image">
-                    </div>
-                </div>
-            </div>
+<main>
+    <header>
+        <div>
+            <h1>Header</h1>
         </div>
-        <!--/ End Hero -->
+    </header>
 
-        <!-- Features Grid -->
-        <div class="section feature-grid bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-10 mx-auto text-center">
-                        <h2 class="font-weight__700">Lorem ipsum dolor</h2>
-                        <p class="lead text-dark-gray">Praesent mollis, massa in auctor molestie, magna lorem semper mauris, a venenatis turpis purus vel metus.</p>
-                    </div>
-                </div>
-                <!-- Enpty Space -->
-                <div class="md-space"></div>
-                <!--/ End Empty Space -->
-                <div class="row">
-                    <div class="col-12 mx-auto">
-                        <div class="row equal-height justify-content-center">
-                            <div class="col-10 col-lg-4">
-                                <div class="feature-grid box box-shadow box-shadow__hover bg-light-primary row">
-                                    <div class="mt-auto col">
-                                        <div class="row align-items-center">
-                                            <div class="col-12 col-md-4 col-lg-12">
-                                                <img src="{{ url_for('static', filename='images/feature-grid-1.svg')}}" alt="product image" class="img-fluid">
-                                                <!-- Enpty Space -->
-                                                <div class="md-space"></div>
-                                                <!--/ End Empty Space -->
-                                            </div>
-                                            <div class="col-12 col-md-8 col-lg-12 text-center text-md-left text-lg-center">
-                                                <h3 class="font-weight__500">
-													Lorem ipsum
-												</h3>
-                                                <p>
-                                                    In maximus libero sed leo vulputate pretium. In sit amet nisi ligula
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 col-lg-4">
-                                <div class="feature-grid box box-shadow box-shadow__hover bg-light-primary row">
-                                    <div class="mt-auto col">
-                                        <div class="row align-items-center">
-                                            <div class="col-12 col-md-4 col-lg-12">
-                                                <img src="{{ url_for('static', filename='images/feature-grid-2.svg')}}" alt="product image" class="img-fluid">
-                                                <!-- Enpty Space -->
-                                                <div class="md-space"></div>
-                                                <!--/ End Empty Space -->
-                                            </div>
-                                            <div class="col-12 col-md-8 col-lg-12 text-center text-md-left text-lg-center">
-                                                <h3 class="font-weight__500">
-													Lorem ipsum
-												</h3>
-                                                <p>
-                                                    In maximus libero sed leo vulputate pretium. In sit amet nisi ligula
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 col-lg-4">
-                                <div class="feature-grid box box-shadow box-shadow__hover bg-light-primary row">
-                                    <div class="mt-auto col">
-                                        <div class="row align-items-center">
-                                            <div class="col-12 col-md-4 col-lg-12">
-                                                <img src="{{ url_for('static', filename='images/feature-grid-3.svg')}}" alt="product image" class="img-fluid">
-                                                <!-- Enpty Space -->
-                                                <div class="md-space"></div>
-                                                <!--/ End Empty Space -->
-                                            </div>
-                                            <div class="col-12 col-md-8 col-lg-12 text-center text-md-left text-lg-center">
-                                                <h3 class="font-weight__500">
-													Lorem ipsum
-												</h3>
-                                                <p>
-                                                    In maximus libero sed leo vulputate pretium. In sit amet nisi ligula
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <article>
+        <aside>
+            <div class="menu">
+                <h3><a href="#intro">Introduction </a></h3>
+                <h3><a href="#deep">Data Deep Dive & Analysis </a></h3>
+                <h3><a href="#deep">Explore On Your Own</a></h3>
+                
             </div>
-        </div>
-        <!--/ End Features Grid -->
+        </aside>
+        <section>
+            <div class="content">
+                <h2 id = "intro">Introduction</h2>
+                <p>Since the industrial revolution the global economy has grown dramtically. The rise in income have lifted millions out of poverty, and given them the means to buy what they desire in their life. However, it has been fueled by an increasing population and rate of unprecedented comsumption. The rising demand, use of fossil fuels has resulted in dramatic levels of polution, decreased biodiversity, reduced air quality etc. We as a race consumes more natural resources by August, than the earth can regenrate every year. If we want to keep of standard of living high, and not keep abusing the earths resources while slowly frying it, we need to optimize how we use and recycle resources. <a href="https://phys.org/news/2018-07-humans-depleting-earth-resources-footprint.html">1 - phys.org/</a></p>
+                <p>Denmark has one of the highest rates of CO2 emissions per capita, we emit 53 million tons of CO2 alone from burning coal, oil and gas, which are partially used for heating and electricty generation. Roughly 15% of the danes emission comes from the production of electricty which primarliy are used in their houses for freezers, lighting etc.  26% of the danes emissions comes from the production of heating, which are used houses, water etc. It is clear that a reduction in the energi consumption of our houses, would greatly contribute to reducing Denmarks overall emission impact. But how do you know wether you have a &quot;Green&quot; house? <a href="https://www.okolariet.dk/viden-om/klima/ideer-til-skolen-klima/inspirationsmateriale-niveau-2/co2-i-hjemmet">2 - okolariet.dk</a></p>
+                <p>In Denmark Energy-labels were introduced in 2010. The energy-labels is in short a document that describes the condition of a building im terms of energy consumption. The Energy-labels lets potential buys of a house know how energy-econmic the house is, what the yearly consumption and price of water, heating and electricty but also let a potential buyer know how much it would cost to renovate the house to make it even more energy efficient.</p>
+                <p>In this website we will investigate how the buildings in Region Hovedstaden compare to eachother, in terms of materials, energy-labels, municipalities &amp; the wealth of it. A machine learning model will also be created to see if we can predict what energy-labels a house based on the materials and other attributes of the building.<a href="https://www.nettopower.dk/nyheder/energimaerkning">3 - nettopower.dk</a></p>
+                
+                <div class="viz" id="viz1">
+                    <select id="viz1_x" onchange="viz1()" class="form-select">
+                        <option>connectionToSewage</option>
+                    </select>
+                    <select id="viz1_l" onchange="viz1()" class="form-select">
+                        <option>currentUse</option>
+                        <option>HeatSupply</option>
+                    </select>
+                    <div id="viz1_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
 
-        <!-- Pricing -->
-        <section class="pricing section bg-light-primary">
-            <div class="container">
-                <div class="row">
-                    <div class="col-10 mx-auto">
-                        {{heat_map}}
-                        <div class="row align-items-center">
-                            <div class="col-12 col-lg-6 pricing-wrap box box-shadow my-3 my-lg-0">
-                                Her kan der være noget stat
-                            </div>
-                            <div class="d-none d-lg-block col-lg-5 ml-auto">
-                                <img src="{{ url_for('static', filename='images/pricing-image.svg')}}" class="img-fluid" alt="Pricing Image">
-                            </div>
-                        </div>
-                        <!-- Empty Space -->
-                        <div class="md-space"></div>
-                        <!--/ End Empty Space -->
-                        <div class="row align-items-center">
-                            <div class="col-10 mx-auto col-md-4">
-                                <div class="pricing-extra my-3">
-                                    <div class="row align-items-center text-md-center text-lg-left">
-                                        <div class="col-3 text-center col-md-12 col-lg-4 px-0">
-                                            <div class="icon-wrap text-white my-3">
-                                                <i class="icon bg-secondary p-3 rounded-circle fas fa-sync"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-9 col-md-12 col-lg-8">
-                                            <h3 class="base-plus-font-size">
-												Lorem ipsum
-											</h3>
-                                            <p class="lead sm-font-size text-gray mb-0">
-                                                Praesent mollis, massa in auctor molestie
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 mx-auto col-md-4">
-                                <div class="pricing-extra my-3">
-                                    <div class="row align-items-center text-md-center text-lg-left">
-                                        <div class="col-3 col-md-12 text-center col-lg-4 px-0">
-                                            <div class="icon-wrap text-white my-3">
-                                                <i class="icon bg-secondary p-3 rounded-circle fas fa-credit-card"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-9 col-md-12 col-lg-8">
-                                            <h3 class="base-plus-font-size">
-												Lorem ipsum
-											</h3>
-                                            <p class="lead sm-font-size text-gray mb-0">
-                                                Praesent mollis, massa in auctor molestie
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 mx-auto col-md-4">
-                                <div class="pricing-extra my-3">
-                                    <div class="row align-items-center text-md-center text-lg-left">
-                                        <div class="col-3 col-md-12 text-center col-lg-4 px-0">
-                                            <div class="icon-wrap text-white my-3">
-                                                <i class="icon bg-secondary p-3 rounded-circle far fa-life-ring"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-9 col-md-12 col-lg-8">
-                                            <h3 class="base-plus-font-size">
-												Lorem ipsum
-											</h3>
-                                            <p class="lead sm-font-size text-gray mb-0">
-                                                Praesent mollis, massa in auctor molestie
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <h2 id = "deep">Data Deep Dive & Analysis</h2>
+                <div class="viz" id="viz2">
+                    <select id="viz2_x" onchange="viz2()" class="form-select">
+                        <option>YearOfConstruction</option>
+                    </select>
+                    <label for="viz2_bins">Bins (1-200):</label>
+                    <input id="viz2_bins" type="number" name="quantity" min="1" max="200" onchange="viz2()" value="60"> 
+                    <div id="viz2_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
+
+
+
+                <div class="viz" id="viz3">
+                    <div id="viz3_container" style="max-height: 600px;">
+                        <iframe class="map", src="{{ url_for('static', filename='html/viz3.html')}}"></iframe>
                     </div>
+                </div>
+                
+
+                <div class="viz" id="viz4" style="display: inline;">
+
+                    <select class="clselect" id="viz4_x" onchange="viz4()" name="test" multiple>
+                        <option class="cloption">A</option>
+                        <option class="cloption">B</option>
+                        <option class="cloption">C</option>
+                        <option class="cloption">D</option>
+                        <option class="cloption">E</option>
+                        <option class="cloption">F</option>
+                        <option class="cloption">G</option>
+                    </select>
+                    <div id="viz4_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
+
+
+                <div class="viz" id="viz5">
+                    <div id="viz5_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
+
+                <div class="viz" id="viz7">
+                    <div id="viz7_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
             </div>
         </section>
-        <!--/ End Pricing -->
+    </article>
 
-        <!-- Footer -->
-        <footer class="footer section bg-light-primary text-gray pt-0">
-            <div class="container border-top border-color-light-gray">
-                <div class="lg-space"></div>
-                <div class="row align-items-center">
-                    <div class="col-12 col-lg-4 pl-lg-0">
-                        <ul class="nav md-font-size justify-content-center justify-content-lg-start">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-dark-gray pl-lg-0"><i class="fab fa-facebook-square"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-dark-gray"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-dark-gray"><i class="fab fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-lg-8 pr-lg-0">
-                        <div class="credit sm-font-size text-center text-lg-right text-dark-gray">
-                            <span>Project by</span> <a class="text-black" href="#">Svane et al.</a> | <span>Website by</span> <a href="#" class="text-black">Svane et al.</a>.
-                        </div>
-                        <div class="copyright xs-font-size text-center text-lg-right">
-                            &copy; 2022. All Rights Reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!--/ End Footer -->
+    <footer>
+    <script>
+        function viz1()
+            {
+                x_c_list = document.getElementById("viz1_x").value
+                l_c_list = document.getElementById("viz1_l").value
+                
 
-    </div>
-    <!-- jQuery Script -->
-    <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+                var container = document.getElementById("viz1_container");
+                var img = document.createElement("img"); 
+                img.src = "{{ url_for('static', filename='images/loading.gif')}}";
+                img.style = "display:block; margin:auto;"
+                container.innerHTML = "";
+                container.appendChild(img);
+                var urlX = "/viz/viz1?x_c="+x_c_list+"&l_c="+l_c_list;
+                
+                fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
+                    var container = document.getElementById("viz1_container").innerHTML = "";
+                    return Bokeh.embed.embed_item(item, "viz1_container"); })
 
-    <!-- Popper Script -->
-    <script src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
+            }
 
-    <!-- Bootstrap Script -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+            function viz2()
+            {
+                x_c_list = document.getElementById("viz2_x").value
+                bins = document.getElementById("viz2_bins").value
+                
 
-    <!-- Main Script -->
-    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+                var container = document.getElementById("viz2_container");
+                var img = document.createElement("img"); 
+                img.src = "{{ url_for('static', filename='images/loading.gif')}}";
+                img.style = "display:block; margin:auto;"
+                container.innerHTML = "";
+                container.appendChild(img);
+                var urlX = "/viz/viz2?x_c="+x_c_list+"&bins="+bins;
+                
+                fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
+                    var container = document.getElementById("viz2_container").innerHTML = "";
+                    return Bokeh.embed.embed_item(item, "viz2_container"); })
 
-</body>
-</html>
+            }
+
+
+            function viz4()
+            {
+                
+                options  = document.getElementById("viz4_x").selectedOptions
+                document.getElementById("viz4_x").disabled = true;
+                var values = Array.from(options).map(({ value }) => value);
+                var x = values.join('');
+
+                var container = document.getElementById("viz4_container");
+                var img = document.createElement("img"); 
+                img.src = "{{ url_for('static', filename='images/loading.gif')}}";
+                img.style = "display:block; margin:auto;"
+                container.innerHTML = "";
+                container.appendChild(img);
+
+                var urlX = "/viz/viz4?x_c="+x;
+                var xmlHttp = new XMLHttpRequest();
+                
+                
+                xmlHttp.open("GET", urlX , false);
+                xmlHttp.send(null);
+                    
+                container.innerHTML = xmlHttp.responseText;
+                document.getElementById("viz4_x").disabled = false;
+
+            }
+
+            function viz5()
+            {
+                var container = document.getElementById("viz5_container");
+                var urlX = "/viz/viz5";
+                
+                fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
+                    var container = document.getElementById("viz5_container").innerHTML = "";
+                    return Bokeh.embed.embed_item(item, "viz5_container"); })
+            }
+
+
+            function viz7()
+            {
+                var container = document.getElementById("viz7_container");
+                var urlX = "/viz/viz7";
+                
+                fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
+                    var container = document.getElementById("viz7_container").innerHTML = "";
+                    return Bokeh.embed.embed_item(item, "viz7_container"); })
+            }
+
+
+
+            viz1()
+            viz2()
+            viz4()
+            viz5()
+            viz7()
+    </script>
+
+    </footer>
+</main>
