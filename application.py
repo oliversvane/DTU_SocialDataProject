@@ -6,6 +6,7 @@ import json
 from bokeh.embed import json_item
 import plots.Folium_heat as heatmap
 import pandas as pd
+import pickle
 
 
 #Import of our definitions
@@ -110,6 +111,28 @@ def viz7():
     name = "S_Barplot"
     data = get_data()
     return json.dumps(json_item(SD_barblots.create_stacked_barplot("EnergyLabelClassification","HeatSupply",data), name))
+
+
+
+
+@app.route("/model/predict",methods=['GET'])
+def predict():
+    sewage = request.args.get('sewage')
+    water = request.args.get('water')
+    Cuse = request.args.get('Cuse')
+    date = request.args.get('date')
+    heat = request.args.get('heat')
+    roof = request.args.get('roof')
+    year = request.args.get('year')
+    area = request.args.get('area')
+    model = pickle.load(open("finalized_model", 'rb'))
+    scaler = pickle.load(open("scaler", 'rb'))
+    x = scaler.fit_transform([[sewage,water,Cuse,date,heat,roof,year,area]])
+    pred = model.predict(x)
+
+    
+
+    return pred
 
 
 
