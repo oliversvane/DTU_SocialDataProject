@@ -7,6 +7,7 @@ from bokeh.embed import json_item
 import plots.Folium_heat as heatmap
 import pandas as pd
 import pickle
+import numpy as np
 
 
 #Import of our definitions
@@ -14,7 +15,7 @@ import plots.barplots as SD_barblots
 import plots.pieplot as SD_pieplot
 import plots.Folium_heat as SD_heatmap
 import plots.Folium_heat_time as SD_heatmap_time
-
+from model.model import user_input_model
 
 
 application = app = Flask(__name__)
@@ -24,7 +25,7 @@ Session(app)
 Bootstrap(app)
 #________________________________Support Functions___________________________________#
 def get_data():
-    return pd.read_pickle('data/final_final_data.pkl')
+    return pd.read_pickle('data/data0705.pkl')
 
 #________________________________Main Page___________________________________________#
 @app.route("/")
@@ -117,25 +118,25 @@ def viz7():
 
 @app.route("/model/predict",methods=['GET'])
 def predict():
-    sewage = request.args.get('sewage')
-    water = request.args.get('water')
-    Cuse = request.args.get('Cuse')
-    date = request.args.get('date')
-    heat = request.args.get('heat')
-    roof = request.args.get('roof')
-    year = request.args.get('year')
-    area = request.args.get('area')
-    model = pickle.load(open("finalized_model", 'rb'))
-    scaler = pickle.load(open("scaler", 'rb'))
-    x = scaler.fit_transform([[sewage,water,Cuse,date,heat,roof,year,area]])
-    pred = model.predict(x)
-
+    input = request.args.get('input')
+    input = input.split(',')
+    inputX = [input[1],input[3],input[5],input[15],input[7],input[9],input[11],input[13],input[19],input[17]]
+    print(inputX)
+    model = pickle.load(open("model.pkl", 'rb'))
+    scaler = pickle.load(open("scaler.pkl", 'rb'))
     
-
-    return pred
-
+    pred = user_input_model(get_data(),inputX,scaler,model)
 
 
+    return pred[0]
+
+
+@app.route("/api/unique",methods=['GET'])
+def unique():
+    name = request.args.get('name')
+    data = list(np.sort(get_data()[name].unique()))
+    data = [str(i) for i in data]
+    return jsonify(data)
 
 
 

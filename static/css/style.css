@@ -83,3 +83,9 @@ iframe {
     padding: 0;
     margin: 0;
 }
+
+.input_label {
+    display: inline-grid;
+    margin-right: 25px;
+    margin-bottom: 25px;
+  }
