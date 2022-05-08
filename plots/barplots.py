@@ -5,9 +5,10 @@ import numpy as np
 # Bokeh import
 from bokeh.plotting import figure
 import bokeh.palettes  as palette # Pallete of colors
-from bokeh.models import HoverTool,Range1d
+from bokeh.models import HoverTool,Range1d,NumeralTickFormatter
 import warnings
 import math
+
 
 # Begin functions:
 def create_barplot(attribute_x,attribute_y,data):
@@ -68,6 +69,7 @@ def create_barplot(attribute_x,attribute_y,data):
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
+    p.yaxis.formatter=NumeralTickFormatter(format="00")
 
     barplot = p
     return barplot
@@ -137,6 +139,7 @@ def create_stacked_barplot(attribute_x,attribute_y,data):
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
+    p.yaxis.formatter=NumeralTickFormatter(format="00")
     stacked_barplot = p
     return stacked_barplot
 
