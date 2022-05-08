@@ -100,11 +100,95 @@
                 <div class="viz" id="viz7">
                     <div id="viz7_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
+
+                <div class="viz" id="model">
+                    <form action="javascript:get_pred()">
+                    <div class="input_label">
+                        <select id="model_1" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_2" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_3" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_4" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_5" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_6" class="form-select"></select>
+                    </div>
+                    <div class="input_label">
+                        <select id="model_7" class="form-select"></select>
+                    </div>
+
+                    <div class="input_label">
+                        <label>Year of renovation</label>
+                        <input id="model_8" type="number" name="yearR" min="1" max="2022" value="2000">
+                    </div>
+                    <div class="input_label">
+                        <label>Housing area (sqm.)</label>
+                        <input id="model_9" type="number" name="m2" min="1" max="9999" value="250">
+                    </div>
+                    <div class="input_label">
+                        <label>Year of construction</label>
+                        <input id="model_10" type="number" name="yearC" min="1" max="2022" value="2000">
+                    </div>
+                    
+
+
+                    
+                    <input type="submit" value="Submit">
+                    </form>
+                    <div id="predCon"></div>
+                </div>
             </div>
         </section>
     </article>
 
     <footer>
+
+    <script>
+
+
+        function get_unique(name) {
+                var urlX = encodeURI("/api/unique?name="+name);
+                var xmlHttp = new XMLHttpRequest();
+                
+                xmlHttp.open("GET", urlX , false);
+                xmlHttp.send(null);
+                
+                var object = JSON.parse(xmlHttp.response);
+                
+                const array = [];
+                for(var i in object) {
+                    array.push([i,object[i]][1]);
+                }
+                return array
+        }
+
+        function get_pred(){
+            const array = [];
+            for (let i = 0; i < 10; i++) {
+                    idX = "model_" + (i+1) ;
+                    var container = document.getElementById(idX);
+                    final = container.value
+                    array.push([i,final]);
+                }
+            var urlX = encodeURI("/model/predict?input="+array);
+
+            var xmlHttp = new XMLHttpRequest();
+            
+            xmlHttp.open("GET", urlX , false);
+            xmlHttp.send(null);
+            
+            var finalX = document.getElementById("predCon")
+            finalX.innerHTML = xmlHttp.response;
+        }
+    </script>
     <script>
         function viz1()
             {
@@ -196,12 +280,35 @@
             }
 
 
+            function create_model(){
+                x = ['Sewage connection', 
+                    'Water Connection',
+                    'Current use',
+                    'Heat Supply',
+                    'Material of roof',
+                    'Material of wall',
+                    'Kommune'
+                    ]
 
-            viz1()
-            viz2()
-            viz4()
-            viz5()
-            viz7()
+
+                for (let i = 0; i < x.length; i++) {
+                    idX = "model_" + (i+1) ;
+                    var unique = get_unique(x[i])
+                    var container = document.getElementById(idX);
+                    const labels = document.createElement('label');
+                    labels.innerHTML = x[i]
+                    container.parentNode.insertBefore(labels, container);
+                    container.name = x[i];
+                    for (let j = 0; j < unique.length; j++) {
+                        var option = document.createElement('option');
+                        option.value = x[i]+"_"+unique[j];
+                        option.innerHTML = unique[j];
+                        container.appendChild(option);
+                    } 
+                } 
+            }
+            create_model()
+
     </script>
 
     </footer>
