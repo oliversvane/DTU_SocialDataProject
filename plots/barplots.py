@@ -69,7 +69,6 @@ def create_barplot(attribute_x,attribute_y,data):
     p.add_layout(p.legend[0], 'right')
     p.xaxis.axis_label = attribute_x
     p.yaxis.axis_label = attribute_y
-    p.yaxis.formatter=NumeralTickFormatter(format="00")
 
     barplot = p
     return barplot
