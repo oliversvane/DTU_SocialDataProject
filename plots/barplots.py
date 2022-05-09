@@ -177,5 +177,6 @@ def create_histogram(title, attribute_x,data,bins=100):
     p.add_layout(p.legend[0], 'right')
     p.legend.background_fill_color = "#fefefe"
     p.yaxis.axis_label = 'Count'
+    p.xaxis.axis_label = 'Year'
     p.grid.grid_line_color="white"
     return p
