@@ -20,7 +20,7 @@ def create_folium_heatmap(df,lat,long,blur,radius):
 
 
 def create_folium_area(data):
-    scores = [4,3,2,1,-1,-2,-3,-4]
+    scores = [0,3,2,1,0,-1,-2,-3]
     map_data = pd.get_dummies(data[["Kommune","Energy Label"]],columns=['Energy Label'])
     map_data = map_data.groupby(["Kommune"]).sum().reset_index()
     score_list = []
@@ -30,11 +30,11 @@ def create_folium_area(data):
         for i in range(len(row[1])):
             if not type(row[1][i]) == str:
                 score += int(scores[i])*int(row[1][i])
-                count += i
+                count += row[1][i]
         score_list.append(score/count)
     map_data['score'] = score_list
 
-    cop_map = folium.Map([55.676098,12.568337], zoom_start=11)
+    cop_map = folium.Map([55.676098,12.568337], zoom_start=11,height=500)
     f = open("data/geo_data.geojson", encoding='utf-8')
     test = json.load(f)
     f.close()
@@ -67,7 +67,6 @@ def create_folium_area(data):
             s['properties']['Label_F'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_F'])
             s['properties']['Label_G'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_G'])
         except:
-            print(kstr)
             s['properties']['Label_A'] = "Out of Scope"
             s['properties']['Label_B'] = "Out of Scope"
             s['properties']['Label_C'] = "Out of Scope"
@@ -78,7 +77,7 @@ def create_folium_area(data):
 
     
     # and finally adding a tooltip/hover to the choropleth's geojson
-    folium.GeoJsonTooltip(['Label_A', 'Label_B','Label_C', 'Label_D','Label_E', 'Label_F','Label_G']).add_to(cp.geojson)
+    folium.GeoJsonTooltip(['label_dk','Label_A', 'Label_B','Label_C', 'Label_D','Label_E', 'Label_F','Label_G']).add_to(cp.geojson)
     
     folium.LayerControl().add_to(cop_map)
 
