@@ -22,7 +22,6 @@
     <!-- Main JS -->
     <script type = "text/javascript" src="{{ url_for('static', filename='js/main.js')}}"></script>
 
-
 </head>
 <main>
     <header>
@@ -34,41 +33,80 @@
     <article>
         <aside>
             <div class="menu">
-                <h3><a href="#intro">Introduction </a></h3>
-                <h3><a href="#deep">Data Deep Dive & Analysis </a></h3>
-                <h3><a href="#deep">Explore On Your Own</a></h3>
-                
+                <div class="manu-item"><h3><a href="#intro">Introduction </a></h3></div>
+                <div class="manu-item"><h3><a href="#state">The current state </a></h3></div>
+                <div class="manu-item"><h3><a href="#deep">Data Deep Dive & Analysis </a></h3></div>
+                <div class="manu-item"><h3><a href="#prediction">Prediction part</a></h3></div>
             </div>
         </aside>
         <section>
             <div class="content">
-                <h2 id = "intro">Introduction</h2>
+                <img src="{{ url_for('static', filename='images/cover_pic.jpg')}}" style="width:100%">
+                <h2 class="anchor" id="intro">Introduction</h2>
                 <p>Since the industrial revolution the global economy has grown dramtically. The rise in income have lifted millions out of poverty, and given them the means to buy what they desire in their life. However, it has been fueled by an increasing population and rate of unprecedented comsumption. The rising demand, use of fossil fuels has resulted in dramatic levels of polution, decreased biodiversity, reduced air quality etc. We as a race consumes more natural resources by August, than the earth can regenrate every year. If we want to keep of standard of living high, and not keep abusing the earths resources while slowly frying it, we need to optimize how we use and recycle resources. <a href="https://phys.org/news/2018-07-humans-depleting-earth-resources-footprint.html">1 - phys.org/</a></p>
                 <p>Denmark has one of the highest rates of CO2 emissions per capita, we emit 53 million tons of CO2 alone from burning coal, oil and gas, which are partially used for heating and electricty generation. Roughly 15% of the danes emission comes from the production of electricty which primarliy are used in their houses for freezers, lighting etc.  26% of the danes emissions comes from the production of heating, which are used houses, water etc. It is clear that a reduction in the energi consumption of our houses, would greatly contribute to reducing Denmarks overall emission impact. But how do you know wether you have a &quot;Green&quot; house? <a href="https://www.okolariet.dk/viden-om/klima/ideer-til-skolen-klima/inspirationsmateriale-niveau-2/co2-i-hjemmet">2 - okolariet.dk</a></p>
                 <p>In Denmark Energy-labels were introduced in 2010. The energy-labels is in short a document that describes the condition of a building im terms of energy consumption. The Energy-labels lets potential buys of a house know how energy-econmic the house is, what the yearly consumption and price of water, heating and electricty but also let a potential buyer know how much it would cost to renovate the house to make it even more energy efficient.</p>
                 <p>In this website we will investigate how the buildings in Region Hovedstaden compare to eachother, in terms of materials, energy-labels, municipalities &amp; the wealth of it. A machine learning model will also be created to see if we can predict what energy-labels a house based on the materials and other attributes of the building.<a href="https://www.nettopower.dk/nyheder/energimaerkning">3 - nettopower.dk</a></p>
-                
+                <p>Data &amp; Packages</p>
+                <p>Three different the sources are used for the project.</p>
+                <ol>
+                    <li><p>The first a data source is the Building and Housing Register <a href="https://data.europa.eu/data/datasets/b49995f6-f194-4f31-8a81-ae3aa0a0f2dd?locale=en&amp;fbclid=IwAR3jjELSM5KFesUA86qgWwDizhAcC2tFvitcjem778c6JkNqAPdMnE02Jw4">(BBR)</a>. It is a nationwide register with data on all buildings and dwellings in the country. The information in the BBR covers, among other things, the area, location, use, installations, water and drainage conditions, kitchen conditions, outer wall and roofing materials, etc. The file is 11GB, 9 tables with a column range of 5-60. We have to chosen to work solely with building withing Region Hovedstaden due to the sheer data sizes.</p>
+                    </li>
+                    <li><p>The second data source was obtained through Energistyrelsen data-base which we were granted access too. By sending a query with an address of an house obtained through BBR, we would get 30 additional attributes desribing it including: Numbers families living in the building and the Energy-label, and Wgs84 coordinates of the building. The data was then merged with BBR on he address. In total we obatined information about 130.000 buildings.</p>
+                    </li>
+                    <li><p>The last data sources was obtained through <a href="https://www.mikonomi.dk/blog/2018/05/%C3%B8konomiske-forhold-kommuner">Min Økonomni</a> countaining information about average income, square meter prices etc, in each municipality., which was finally merged with the from BBR</p>
+                    </li>
+                </ol>
+                <p>In total after some additional data cleaning we end up with 123.060 rows each representing an unique building and 99 attributes describing it. The final data file is stored as python pickle file and has the size of 28 mega bytes.</p>
+                <p>It is important to take into account that there might be a lot of missing data in the BBR data set or the Data from Energistyrelsen, and therefore it can not be expected that we have data for every single building in the greater Copenhagen area.</p>
+                <h2 class="anchor" id="state">The current state of the buildings in the greater Copenhagen area</h2>
+                <p>In order to get the most out of this article, it is important understand the current state of buildings in the greater Copenhagen area. In the visual below it is possible to explore the distribution and counts of multiple parameters related to the buildings. Please choose attributes for x and a attribute for the label to generate dynamic plots.</p>
+                <p>Following interesting observations can be made if you choose the following combinations:</p>
+                <ul>
+                <li><p>X-axis: Heatsupply, Label: Kommune <br/> It is quite clear that different heat systems are used in different municipalities. For an example Copenhagen is big on on disctrict heat, while Lyngby Tårbæk is uses primarily Gas. We can also see that almost all municipalites use cover a small percentage of their hearting supply with either oil or electricity.</p>
+                </li>
+                <li><p>X-axis: EnergyLabelClassification, Label: Kommune <br/>
+                This plot give an a nice overview of how the energy labels are distributed between the municipalities. The first impression you get is that the amount of energy labels are relativly evenly distributed between the municipalities compared to their size.</p>
+                </li>
+                <li><p>X-axis: EnergyLabelClassification, Label: Kommune <br/>
+                This plot show how buildings are used across the municipalities. It is clear to see here that in Frederiksberg and Copenhagen there seem to be a lot Collectives compared to other municipalties. So a lot of people living in the same apartment, and therefore the energy usage would most likely be higher than a normal residential building.</p>
+                </li>
+                </ul>
                 <div class="viz" id="viz1">
                     <select id="viz1_x" onchange="viz1()" class="form-select">
-                        <option>connectionToSewage</option>
+                        <option>Sewage connection</option>
+                        <option>Water Connection</option>
+                        <option>Current use</option>
+                        <option>Heat Supply</option>
+                        <option>Material of roof</option>
+                        <option>Material of wall</option>
+                        <option>YearOfConstruction_Interval</option>
+                        <option>Energy Label</option>
+                        <option>Kommune</option>
                     </select>
                     <select id="viz1_l" onchange="viz1()" class="form-select">
-                        <option>currentUse</option>
-                        <option>HeatSupply</option>
+                        <option>Current use</option>
+                        <option>Heat Supply</option>
+                        <option>Material of roof</option>
+                        <option>Material of wall</option>
+                        <option>Energy Label</option>
+                        <option>Kommune</option>
                     </select>
-                    <div id="viz1_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                    <div id="viz1_container" style="max-height:600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
-
-                <h2 id = "deep">Data Deep Dive & Analysis</h2>
+                <p>To get a better understanding of the current construction trends, here is a histogram showing the distribution of contsruction year. If you choose the bin size = 50, each bins roughly represents 10 years. We can see a the majority of the buildings in greater Copenhagen are constructed in the 1940, 1960, 1970 and 1980. Back then we did not have the same focus and technology for isolation, energy and water usages minimisation. Therefore buildings from this age can not be expected to have a great energy label, however they should fair a lot better than very old buildings from before the 1920&#39;s</p>
+                <h1>skal vi have flere valgmuligheder? areal andet år?</h1>
+                <h2 class="anchor" id = "deep">Data Deep Dive & Analysis</h2>
                 <div class="viz" id="viz2">
                     <select id="viz2_x" onchange="viz2()" class="form-select">
-                        <option>YearOfConstruction</option>
+                        <option>Year of construction</option>
                     </select>
                     <label for="viz2_bins">Bins (1-200):</label>
                     <input id="viz2_bins" type="number" name="quantity" min="1" max="200" onchange="viz2()" value="60"> 
                     <div id="viz2_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
 
+                <p>The heatmap below shows how the buildings in our data set is distributed. It is clear to see the further away from Copenhagen you get the lower the more spread out the clusters of buildings becomes. If you zoom all they way in you will also see that it is far from all buildings we have in every area of the map.</p>
 
 
                 <div class="viz" id="viz3">
@@ -77,11 +115,15 @@
                     </div>
                 </div>
                 
+                <p>Now that you have gotten have an overview of the data available, we are ready to take a closer look, and analyse the data. You will be able to follow our guided tour, or deviate to construct your own interesting visuals with our interactive plots.</p>
+                <p>The first plot below is a heatmap over time, showing when the houses currently classified with energy label of your choosing was constructed. It can clearly be seen that very few buildings show up for each frame before the year 2000, but after that the number increases drasticly. This alligns well with what you had found if you had choosen &quot;X-axis: Year of construction interval&quot;, Label: Energy class in the bar plot above. The additional information we get here is we can see exactly where the buildings are located and not just in what municipality. It can be seen that the buildings are actually quite spread out, with bigger clusters here and there. Vise versa, if you choose G you can see a lot buildings berfore the 1980, but almost none after.</p>
+                <p>Another cool thing that can be see from the plot is if you choose all energy labels. This is effectivly showing you how the city of Copenhagen has evovled since the 1500&#39;s. It ca be seen that in the 1700&#39;s and the 1800&#39;s till start the start of the 1900&#39;s the majortiy of the buildings are within the inner city, however then new buildings here are stopped and are slowly moving away from the city center. Then in the last 10 years a lot of buildings are being built within Copenhagen and the outskirts again, presumeling old buildings are demolished making space for newer and more efficient ones</p>
+                <p>Now it is your turn to explore; take a look at the different energy labels by using the dropdown below.</p>
 
                 <div class="viz" id="viz4" style="display: inline;">
 
                     <select class="clselect" id="viz4_x" onchange="viz4()" name="test" multiple>
-                        <option class="cloption">A</option>
+                        <option selected class="cloption">A</option>
                         <option class="cloption">B</option>
                         <option class="cloption">C</option>
                         <option class="cloption">D</option>
@@ -97,9 +139,16 @@
                     <div id="viz5_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
 
+                <p>We have seen that the heatsources differ quite a bit depending on which municipality you are in. But what about the building materials of the houses? To get a better understandiong of the construction material of the dwelings, the folling map allows you to view the location of houses with different construction attributes. If you start with looking at the wall materials, i could be suspected that areas north of Copenhagen might use more expensive materials for their walls such as masonry or adobe. This is also represented in the heatmap, the concentration of mason walls are considerably higher inside Copenhagen and north of Copenhagen. If we look at the different types of roofing materials, we can again assumme that some of the more expensive options or better represented in north of Copenhagen such clay tiles, Thatch or Glass. If you look through the different options on the heatmap we do not see the same concentration as before. Another important thing to tale intp account regarding the materials is the more expensives ones are not necessarily the most &quot;green&quot; or efficents ones, an example could be a glass roof.</p>
+
                 <div class="viz" id="viz7">
                     <div id="viz7_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
+                <div class="viz" id="viz8">
+                    <div id="viz8_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
+                <h2 class="anchor" id="prediction">Prediction part</h2>
+                <p>You might be curious how your house is fairing, and what energylabel it should get? Luckily for you we have embedded a machine learning model for this website that can predict the energy label if buildings using basic information. The model is not a 100% accurate but will give a reasonable estimate which is fairly reliable + - on level of the energylabel. If you are unsure about some of the information in your building, feel free to try multiple different combinations out. If the specific material in you roof or walls are missing choose &quot;other - unpopulated&quot;.</p>
 
                 <div class="viz" id="model">
                     <form action="javascript:get_pred()">
@@ -279,6 +328,28 @@
                     return Bokeh.embed.embed_item(item, "viz7_container"); })
             }
 
+            function viz8()
+            {
+                
+
+
+                var container = document.getElementById("viz8_container");
+                var img = document.createElement("img"); 
+                img.src = "{{ url_for('static', filename='images/loading.gif')}}";
+                img.style = "display:block; margin:auto;"
+                container.innerHTML = "";
+                container.appendChild(img);
+
+                var urlX = "/viz/viz8";
+                var xmlHttp = new XMLHttpRequest();
+                
+                xmlHttp.open("GET", urlX , false);
+                xmlHttp.send(null);
+                    
+                container.innerHTML = xmlHttp.responseText;
+            
+
+            }
 
             function create_model(){
                 x = ['Sewage connection', 
@@ -306,7 +377,17 @@
                         container.appendChild(option);
                     } 
                 } 
-            }
+            }  
+            viz1()
+            viz2()
+
+            viz4()
+            viz5()
+
+            viz7()
+            viz8()
+            const box = document.getElementById('box');
+            box.removeAttribute('style');
             create_model()
 
     </script>

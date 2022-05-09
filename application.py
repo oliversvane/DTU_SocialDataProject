@@ -90,7 +90,7 @@ def viz4():
     data = get_data()
     x_c = request.args.get('x_c')
     x_c = [x for x in x_c]
-    map = SD_heatmap_time.create_folium_heatmap_time("YearOfConstruction",'Wgs84Latitude','Wgs84Longitude',data[data['EnergyLabelClassification'].isin(x_c)])
+    map = SD_heatmap_time.create_folium_heatmap_time("Year of construction",'Wgs84Latitude','Wgs84Longitude',data[data['Energy Label'].isin(x_c)])
     return map._repr_html_()
 
 
@@ -99,7 +99,7 @@ def viz4():
 def viz5():
     name = "Barplot"
     data = get_data()
-    return json.dumps(json_item(SD_barblots.create_barplot("EnergyLabelClassification","Kommune",data), name))
+    return json.dumps(json_item(SD_barblots.create_barplot("Energy Label","Kommune",data), name))
 
 
 
@@ -111,9 +111,14 @@ def viz5():
 def viz7():
     name = "S_Barplot"
     data = get_data()
-    return json.dumps(json_item(SD_barblots.create_stacked_barplot("EnergyLabelClassification","HeatSupply",data), name))
+    return json.dumps(json_item(SD_barblots.create_stacked_barplot("Energy Label","Heat Supply",data), name))
 
 
+@app.route("/viz/viz8",methods=['GET'])
+def viz8():
+    data = get_data()
+    map = SD_heatmap.create_folium_area(data)
+    return map._repr_html_()
 
 
 @app.route("/model/predict",methods=['GET'])
@@ -121,13 +126,12 @@ def predict():
     input = request.args.get('input')
     input = input.split(',')
     inputX = [input[1],input[3],input[5],input[15],input[7],input[9],input[11],input[13],input[19],input[17]]
-    print(inputX)
     model = pickle.load(open("model.pkl", 'rb'))
     scaler = pickle.load(open("scaler.pkl", 'rb'))
     
     pred = user_input_model(get_data(),inputX,scaler,model)
 
-
+    print(pred[0])
     return pred[0]
 
 
