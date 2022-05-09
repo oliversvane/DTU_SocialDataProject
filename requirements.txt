@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 app-config==1.0.1
 asttokens==2.0.5
 backcall==0.2.0
@@ -81,3 +82,6 @@ wincertstore==0.2
 WTForms==3.0.1
 xgboost==1.4.2
 zipp==3.8.0
+=======
+xgboost==1.4.2
+>>>>>>> e5e535c3e887bb7b24fb745ae4bde02362f9a57a

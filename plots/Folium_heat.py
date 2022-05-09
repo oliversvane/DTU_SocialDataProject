@@ -38,9 +38,7 @@ def create_folium_area(data):
     f = open("data/geo_data.geojson", encoding='utf-8')
     test = json.load(f)
     f.close()
-    for i in test['features']:
-        print(i['properties']['label_dk'])
-    
+
     cp = folium.Choropleth(
             geo_data=test,
             name="choropleth",
