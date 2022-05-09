@@ -26,7 +26,8 @@
 <main>
     <header>
         <div>
-            <h1>Header</h1>
+            <h1 style="padding: 0;margin: 0;">Energy Labels of Greater Copenhagen</h1>
+            <h4>Social Data 2022 - S184286, S184294 & S184299</h4>
         </div>
     </header>
 
@@ -47,18 +48,6 @@
                 <p>Denmark has one of the highest rates of CO2 emissions per capita, we emit 53 million tons of CO2 alone from burning coal, oil and gas, which are partially used for heating and electricty generation. Roughly 15% of the danes emission comes from the production of electricty which primarliy are used in their houses for freezers, lighting etc.  26% of the danes emissions comes from the production of heating, which are used houses, water etc. It is clear that a reduction in the energi consumption of our houses, would greatly contribute to reducing Denmarks overall emission impact. But how do you know wether you have a &quot;Green&quot; house? <a href="https://www.okolariet.dk/viden-om/klima/ideer-til-skolen-klima/inspirationsmateriale-niveau-2/co2-i-hjemmet">2 - okolariet.dk</a></p>
                 <p>In Denmark Energy-labels were introduced in 2010. The energy-labels is in short a document that describes the condition of a building im terms of energy consumption. The Energy-labels lets potential buys of a house know how energy-econmic the house is, what the yearly consumption and price of water, heating and electricty but also let a potential buyer know how much it would cost to renovate the house to make it even more energy efficient.</p>
                 <p>In this website we will investigate how the buildings in Region Hovedstaden compare to eachother, in terms of materials, energy-labels, municipalities &amp; the wealth of it. A machine learning model will also be created to see if we can predict what energy-labels a house based on the materials and other attributes of the building.<a href="https://www.nettopower.dk/nyheder/energimaerkning">3 - nettopower.dk</a></p>
-                <p>Data &amp; Packages</p>
-                <p>Three different the sources are used for the project.</p>
-                <ol>
-                    <li><p>The first a data source is the Building and Housing Register <a href="https://data.europa.eu/data/datasets/b49995f6-f194-4f31-8a81-ae3aa0a0f2dd?locale=en&amp;fbclid=IwAR3jjELSM5KFesUA86qgWwDizhAcC2tFvitcjem778c6JkNqAPdMnE02Jw4">(BBR)</a>. It is a nationwide register with data on all buildings and dwellings in the country. The information in the BBR covers, among other things, the area, location, use, installations, water and drainage conditions, kitchen conditions, outer wall and roofing materials, etc. The file is 11GB, 9 tables with a column range of 5-60. We have to chosen to work solely with building withing Region Hovedstaden due to the sheer data sizes.</p>
-                    </li>
-                    <li><p>The second data source was obtained through Energistyrelsen data-base which we were granted access too. By sending a query with an address of an house obtained through BBR, we would get 30 additional attributes desribing it including: Numbers families living in the building and the Energy-label, and Wgs84 coordinates of the building. The data was then merged with BBR on he address. In total we obatined information about 130.000 buildings.</p>
-                    </li>
-                    <li><p>The last data sources was obtained through <a href="https://www.mikonomi.dk/blog/2018/05/%C3%B8konomiske-forhold-kommuner">Min Økonomni</a> countaining information about average income, square meter prices etc, in each municipality., which was finally merged with the from BBR</p>
-                    </li>
-                </ol>
-                <p>In total after some additional data cleaning we end up with 123.060 rows each representing an unique building and 99 attributes describing it. The final data file is stored as python pickle file and has the size of 28 mega bytes.</p>
-                <p>It is important to take into account that there might be a lot of missing data in the BBR data set or the Data from Energistyrelsen, and therefore it can not be expected that we have data for every single building in the greater Copenhagen area.</p>
                 <h2 class="anchor" id="state">The current state of the buildings in the greater Copenhagen area</h2>
                 <p>In order to get the most out of this article, it is important understand the current state of buildings in the greater Copenhagen area. In the visual below it is possible to explore the distribution and counts of multiple parameters related to the buildings. Please choose attributes for x and a attribute for the label to generate dynamic plots.</p>
                 <p>Following interesting observations can be made if you choose the following combinations:</p>
