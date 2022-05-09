@@ -47,9 +47,9 @@ section {
 }
 
 .content {
-    margin-left: 30px;
-    margin-right: 30px;
     color: #000;
+    max-width: 1000px;
+    margin: auto;
 }
 .viz {
     max-width:1000px; 
@@ -89,3 +89,13 @@ iframe {
     margin-right: 25px;
     margin-bottom: 25px;
   }
+
+  .anchor {
+    padding-top: 90px;
+    margin-top: -90px;
+}
+
+.manu-item {
+    margin-top: 70px;
+  }
+html{scroll-behavior:smooth}
