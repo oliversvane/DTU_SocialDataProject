@@ -61,8 +61,12 @@ def viz1():
     data = get_data()
     x_c = request.args.get('x_c')
     l_c = request.args.get('l_c')
-
-    return json.dumps(json_item(SD_barblots.create_barplot(x_c,l_c,data), name))
+    state = request.args.get('state')
+    print(state)
+    if not state == "true":
+        return json.dumps(json_item(SD_barblots.create_barplot(x_c,l_c,data), name))
+    else:
+        return json.dumps(json_item(SD_barblots.create_stacked_barplot(x_c,l_c,data), name))
 
 
 
@@ -104,7 +108,14 @@ def viz5():
 
 
 #TODO Viz 6 - OLIVER
+@app.route("/viz/viz6",methods=['GET'])
+def viz6():
+    x_cx = request.args.get('x_cx')
+    x_c = request.args.get('x_c')
+    data = get_data()
 
+    map = SD_heatmap.create_folium_heatmap(data[data[x_cx]==x_c],"Wgs84Latitude","Wgs84Longitude",3,5)
+    return map._repr_html_()
 
 
 @app.route("/viz/viz7",methods=['GET'])

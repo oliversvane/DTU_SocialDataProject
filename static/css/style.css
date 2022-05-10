@@ -70,7 +70,9 @@ iframe {
     height: 400px !important;
 
   }
-  
+  #viz8 {
+    margin-top: 80px;
+  }
 
 .clselect {
 	width: 100%;

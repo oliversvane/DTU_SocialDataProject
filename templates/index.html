@@ -70,7 +70,7 @@
                             <option>Sewage connection</option>
                             <option>Water Connection</option>
                             <option>Current use</option>
-                            <option selected>Heat Supply</option>
+                            <option selected="selected">Heat Supply</option>
                             <option>Material of roof</option>
                             <option>Material of wall</option>
                             <option>YearOfConstruction_Interval</option>
@@ -86,9 +86,12 @@
                             <option>Material of roof</option>
                             <option>Material of wall</option>
                             <option>Energy Label</option>
-                            <option selected>Kommune</option>
+                            <option selected="selected">Kommune</option>
                         </select>
                     </div>
+                        <label for="testX"> Percentage</label>
+                        <input onchange="viz1()" type="checkbox" id="percentagel" name="testX" value="Boat">
+
                     <div id="viz1_container" style="max-height:600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
                 <p>To get a better understanding of the current construction trends, here is a histogram showing the distribution of contsruction year. If you choose the bin size = 50, each bins roughly represents 10 years. We can see a the majority of the buildings in greater Copenhagen are constructed in the 1940, 1960, 1970 and 1980. Back then we did not have the same focus and technology for isolation, energy and water consumption. Therefore buildings from this age can not be expected to have a great energy label, however they should fair a lot better than very old buildings from before the 1920&#39;s</p>
@@ -123,7 +126,7 @@
                         <option class="cloption">A</option>
                         <option class="cloption">B</option>
                         <option class="cloption">C</option>
-                        <option selected class="cloption">D</option>
+                        <option selected="selected" class="cloption">D</option>
                         <option class="cloption">E</option>
                         <option class="cloption">F</option>
                         <option class="cloption">G</option>
@@ -135,7 +138,28 @@
                 <p>We have seen that the heating supply differs quite a bit depending on which municipality you are in. But what about the building materials of the buildings? </p>
                 <p>To get a better understanding of the construction material of the dwellings, the following map allows you to view the location of buildings with different construction attributes. If you start with looking at the wall materials, it could be suspected that areas north of Copenhagen might use more expensive materials for their walls such as masonry. This is also represented in the heatmap, the concentration of masonry walls are considerably higher inside Copenhagen and north of Copenhagen.</p>
                 <p>If we look at the different types of roofing materials, we can again assume that some of the more expensive options are better represented in the north of Copenhagen such clay tiles, Thatch or Glass. If you look through the different options on the heatmap we do not see the same concentration as before. Another important thing to take into account regarding the materials is, that the more expensives ones are not necessarily the most "green" or efficents ones, an example could be a glass roof.</p>
-                
+                <div class="viz" id="viz6">
+                    <form action="javascript:viz6()">
+                        <div class="input_label">
+                            <label>Attribute</label>
+                            <select class="form-select" id="viz6_cx" onchange="get_viz6_values()" name="test" multiple>
+                                <option selected="selected" value="Material of roof">Material of roof</option>
+                                <option value="Material of wall">Material of wall</option>
+                            </select>
+                        </div>
+                        <div class="input_label">
+                        <label>Value</label>
+                        <select class="form-select" id="viz6_c" name="test" multiple>
+                        </select>
+                        </div>
+                        <input type="submit" value="Submit">
+                    </form>
+
+                    <div id="viz6_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
+                </div>
+
+
+
                 <div class="viz" id="viz8">
                     <div id="viz8_container" style="max-height: 600px;"> <img style="display:block; margin:auto;" src="{{ url_for('static', filename='images/loading.gif')}}" alt="loading"></div>
                 </div>
@@ -187,15 +211,29 @@
                     </form>
                     <div id="predCon"></div>
                 </div>
+                <div class="final_r"> If we caught your attention and you would like to discover more, please see the underlying analysis in the Jupyter notebook <a href="#INSERT LINK">here</a>.</div>
             </div>
-            If we caught your attention and you would like to discover more, please see the underlying analysis in the Jupyter notebook <a href="#INSERT LINK">here</a>.
+           
         </section>
     </article>
 
     <footer>
 
     <script>
+        function get_viz6_values(){
+            x_cx = document.getElementById("viz6_cx").value
+            var unique = get_unique(x_cx)
+            var container = document.getElementById("viz6_c");
 
+            for (let j = 0; j < unique.length; j++) {
+                var option = document.createElement('option');
+                option.value = unique[j];
+                option.innerHTML = unique[j];
+                container.appendChild(option);
+            } 
+
+        }
+        get_viz6_values()
 
         function get_unique(name) {
                 var urlX = encodeURI("/api/unique?name="+name);
@@ -221,6 +259,7 @@
                     final = container.value
                     array.push([i,final]);
                 }
+
             var urlX = encodeURI("/model/predict?input="+array);
 
             var xmlHttp = new XMLHttpRequest();
@@ -235,9 +274,9 @@
     <script>
         function viz1()
             {
-                x_c_list = document.getElementById("viz1_x").value
-                l_c_list = document.getElementById("viz1_l").value
-                
+                x_c_list = document.getElementById("viz1_x").value;
+                l_c_list = document.getElementById("viz1_l").value;
+                perc = document.getElementById("percentagel").checked;
 
                 var container = document.getElementById("viz1_container");
                 var img = document.createElement("img"); 
@@ -245,7 +284,7 @@
                 img.style = "display:block; margin:auto;"
                 container.innerHTML = "";
                 container.appendChild(img);
-                var urlX = "/viz/viz1?x_c="+x_c_list+"&l_c="+l_c_list;
+                var urlX = "/viz/viz1?x_c="+x_c_list+"&l_c="+l_c_list+"&state="+perc;
                 
                 fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
                     var container = document.getElementById("viz1_container").innerHTML = "";
@@ -309,6 +348,31 @@
                 fetch(urlX).then(function(response) { return response.json(); }).then(function(item) {
                     var container = document.getElementById("viz5_container").innerHTML = "";
                     return Bokeh.embed.embed_item(item, "viz5_container"); })
+            }
+
+            function viz6()
+            {
+                
+
+
+                var container = document.getElementById("viz6_container");
+                var img = document.createElement("img"); 
+                img.src = "{{ url_for('static', filename='images/loading.gif')}}";
+                img.style = "display:block; margin:auto;"
+                container.innerHTML = "";
+                container.appendChild(img);
+                x_cx = document.getElementById("viz6_cx").value
+                x_c = document.getElementById("viz6_c").value
+
+                var urlX = "/viz/viz6?x_cx="+x_cx+"&x_c="+x_c;
+                var xmlHttp = new XMLHttpRequest();
+                
+                xmlHttp.open("GET", urlX , false);
+                xmlHttp.send(null);
+                    
+                container.innerHTML = xmlHttp.responseText;
+            
+
             }
 
 
@@ -377,7 +441,7 @@
 
             viz4()
 
-
+            viz6()
             viz8()
             create_model()
 
