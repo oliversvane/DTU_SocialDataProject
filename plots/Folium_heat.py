@@ -20,7 +20,7 @@ def create_folium_heatmap(df,lat,long,blur,radius):
 
 
 def create_folium_area(data):
-    scores = [0,3,2,1,0,-1,-2,-3]
+    scores = [7,6,5,4,3,2,1,0]
     map_data = pd.get_dummies(data[["Kommune","Energy Label"]],columns=['Energy Label'])
     map_data = map_data.groupby(["Kommune"]).sum().reset_index()
     score_list = []
@@ -59,13 +59,13 @@ def create_folium_area(data):
     for s in cp.geojson.data['features']:
         kstr = s['properties']['label_dk'] #.replace('Ã¸','ø').replace('Ã¥','å').replace('Ã†','æ').replace('Ã¦','æ')
         try: 
-            s['properties']['Label_A'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_A'])
-            s['properties']['Label_B'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_B'])
-            s['properties']['Label_C'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_C'])
-            s['properties']['Label_D'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_D'])
-            s['properties']['Label_E'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_E'])
-            s['properties']['Label_F'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_F'])
-            s['properties']['Label_G'] = int(map_data[map_data['Kommune'] == kstr]['Energy Label_G'])
+            s['properties']['Label_A'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_A']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_B'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_B']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_C'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_C']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_D'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_D']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_E'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_E']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_F'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_F']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
+            s['properties']['Label_G'] = str(np.round((int(map_data[map_data['Kommune'] == kstr]['Energy Label_G']) / np.sum(map_data[map_data['Kommune'] == kstr]).values[1:].sum())*100,2))+" %"
         except:
             s['properties']['Label_A'] = "Out of Scope"
             s['properties']['Label_B'] = "Out of Scope"
